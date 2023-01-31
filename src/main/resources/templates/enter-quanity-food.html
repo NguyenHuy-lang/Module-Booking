@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nhập số lượng món ăn</title>
+</head>
+<body>
+<h1>Nhập số lượng món ăn</h1>
+<form th:with="tableId=${tableId},foodId=${usedFood.food.id}"
+      th:action="@{/customer/booking/table/__${tableId}__/food/__${foodId}__}" th:object="${usedFood}" method="post">
+    <label for="food">Tìm kiếm món ăn theo tên</label>
+    <input type="text" id="food" th:field="*{quantity}" />
+    <input type="submit" value="Tìm kiếm">
+</form>
+</body>
+</html>

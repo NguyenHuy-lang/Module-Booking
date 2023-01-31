@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+</head>
+<body>
+
+<script th:inline="javascript">
+    function setJwtToken(token) {
+        localStorage.setItem('jwtToken', token);
+    }
+</script>
+
+
+<h2>Login</h2>
+<form id="login-form" th:action="@{/api/v1/auth/authenticate}" th:object="${member}" method="post" onsubmit="submitForm(event)">
+    <div>
+        <label for="email">Username:</label>
+        <input type="text" id="email" th:field="*{email}" />
+    </div>
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" th:field="*{password}" />
+    </div>
+    <div>
+        <input type="submit" value="Submit" />
+    </div>
+</form>
+
+
+<script th:inline="javascript">
+    document.getElementById('login-form').addEventListener('submit', function (event) {
+    event.preventDefault();
+    let formData = new FormData(event.target);
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', '/api/v1/auth/authenticate', true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            let response = JSON.parse(xhr.responseText);
+            if (response.success) {
+                localStorage.setItem('jwtToken', response.token);
+                // Redirect to home page or show success message
+            } else {
+                // Show error message
+            }
+        }
+    };
+    xhr.send(formData);
+});
+
+</script>
+
+
+
+
+
+</body>
+</html>

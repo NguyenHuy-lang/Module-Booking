@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Chọn bàn ăn</title>
+</head>
+<body>
+<h1>Danh sách các bàn ăn của nhà hàng</h1>
+<form th:action="@{/customer/booking/filter-table}" method="post" th:object="${table}">
+    <label for="capacity">Lọc theo sức chứa:</label>
+    <input type="number" id="capacity" th:field="*{capacity}"/>
+    <br>
+<!--    <label for="status">Lọc theo trạng thái</label>-->
+<!--    <select id="status" th:field="*{status}">-->
+<!--        <option value="">All</option>-->
+<!--        <option value="available">Available</option>-->
+<!--        <option value="booked">Booked</option>-->
+<!--    </select>-->
+    <br>
+
+    <input type="submit" value="Lọc">
+</form>
+<table>
+    <tr>
+        <th>Số hiệu bạn</th>
+        <th>Sức chứa tối đa</th>
+        <th>Trạng thái</th>
+    </tr>
+    <tr th:each="table : ${filterTable}" >
+        <td th:text="${table.code}"></td>
+        <td th:text="${table.capacity}"></td>
+        <td th:text="${table.id}"></td>
+        <td>
+            <a th:href="@{/customer/booking/table/{tableId}(tableId=${table.id})}" class="update-button">Update</a>
+        </td>
+    </tr>
+</table>
+
+<a th:href="@{/customer/booking/save}">
+    <button>Xác nhận đặt bàn</button>
+</a>
+</body>
+</html>

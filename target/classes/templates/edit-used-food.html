@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chỉnh sửa số lượng đồ ăn</title>
+</head>
+<body>
+    <form th:with="tableId=${tableId}, foodId=${usedFood.food.id}" th:action="@{/customer/booking/table/__${tableId}__/food/__${foodId}__/edit}" th:object="${usedFood}" method="post">
+        <label th:text="${usedFood.food.name}"></label><br>
+        <label th:text="${usedFood.unitPrice}"></label><br>
+        <input type="text" th:value="${usedFood.quantity}" th:field="*{quantity}"/>
+        <input type="submit" value="submit">
+    </form>
+</body>
+</html>
